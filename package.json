@@ -2,9 +2,11 @@
   "name": "conduitnode",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "tsc && nodemon ./build/index.js",
+    "start": "node ./build/index.js",
+    "ts": "tsc -w"
   },
   "author": "Ankita Khurana",
   "license": "ISC",
@@ -14,7 +16,11 @@
     "@types/node": "^10.12.0",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
+    "jsonwebtoken": "^8.3.0",
     "mongoose": "^5.3.6",
+    "nodemon": "^1.18.4",
+    "sequelize": "^4.41.0",
+    "sqlite3": "^4.0.4",
     "typescript": "^3.1.3"
   }
 }
