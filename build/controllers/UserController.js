@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var TokenController_1 = require("../controllers/TokenController");
-var User = require("../models/User");
+var User = require("../models/Models").User;
 var UserController = /** @class */ (function () {
     function UserController() {
     }
@@ -75,6 +75,16 @@ var UserController = /** @class */ (function () {
             }
         })
             .catch(function (err) {
+            return err;
+        });
+    };
+    UserController.prototype.saveToUser = function (article, author) {
+        return User.findOne({ where: { username: author } })
+            .then(function (foundAuthor) {
+            foundAuthor.addArticle(article.id).then(function () { });
+        })
+            .catch(function (err) {
+            console.log(err);
             return err;
         });
     };

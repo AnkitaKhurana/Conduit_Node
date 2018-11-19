@@ -6,7 +6,7 @@ import { profiles } from "../constants/RouteConstants";
 var jwt = require("jsonwebtoken");
 var cert = "private.key"; //set in .env
 
-class ProfileRouter {
+class ProfileRoutes {
     public router: Router;
 
     constructor() {
@@ -118,6 +118,6 @@ class ProfileRouter {
     }
 }
 
-const profileRouter = new ProfileRouter();
-profileRouter.setRoutes();
-export default profileRouter.router;
+const profileRoutes = new ProfileRoutes();
+profileRoutes.setRoutes();
+export default profileRoutes.router;

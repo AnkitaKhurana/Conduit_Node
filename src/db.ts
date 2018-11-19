@@ -1,9 +1,11 @@
-import * as Sequalise from 'sequelize';
+import * as Sequalize from 'sequelize';
 
-const db = new Sequalise('çonduitDatabase', 'conduitadmin', 'Ankita', {
+const db = new Sequalize('çonduitDatabase', 'conduitadmin', 'Ankita', {
     dialect: 'sqlite',
-    storage: __dirname + '/conduit.db'    
+    storage: __dirname + '/conduit.db',
+    // operatorsAliases: Sequalize.Op, // use Sequelize.Op
 });
+
 
 db.sync()
     .then(() => {

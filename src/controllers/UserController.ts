@@ -1,9 +1,9 @@
 import statusCodes from "../constants/StatusCodes";
 import tokenController from "../controllers/TokenController";
-const User = require("../models/User");
+const User = require("../models/Models").User;
 
 class UserController {
-  constructor() { }
+  constructor() {}
 
   public findUser(email) {
     return User.findOne({ where: { email: email } })
@@ -78,6 +78,17 @@ class UserController {
         }
       })
       .catch(err => {
+        return err;
+      });
+  }
+
+  public saveToUser(article, author) {
+    return User.findOne({ where: { username: author } })
+      .then(foundAuthor => {
+        foundAuthor.addArticle(article.id).then(() => {});
+      })
+      .catch(err => {
+        console.log(err);
         return err;
       });
   }

@@ -4,6 +4,7 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var UserRoute_1 = require("./routes/UserRoute");
 var ProfileRoutes_1 = require("./routes/ProfileRoutes");
+var ArticleRoutes_1 = require("./routes/ArticleRoutes");
 // Server class for http server 
 var Server = /** @class */ (function () {
     function Server() {
@@ -33,6 +34,7 @@ var Server = /** @class */ (function () {
         });
         this.app.use('/api', UserRoute_1.default);
         this.app.use('/api', ProfileRoutes_1.default);
+        this.app.use('/api', ArticleRoutes_1.default);
     };
     return Server;
 }());

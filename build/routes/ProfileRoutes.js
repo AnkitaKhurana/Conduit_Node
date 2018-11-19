@@ -7,8 +7,8 @@ var express_1 = require("express");
 var RouteConstants_1 = require("../constants/RouteConstants");
 var jwt = require("jsonwebtoken");
 var cert = "private.key"; //set in .env
-var ProfileRouter = /** @class */ (function () {
-    function ProfileRouter() {
+var ProfileRoutes = /** @class */ (function () {
+    function ProfileRoutes() {
         var _this = this;
         this.follow = function (req, res) {
             FollowingController_1.default.follow(req.body.username, req.params.username).then(function (result) {
@@ -42,7 +42,7 @@ var ProfileRouter = /** @class */ (function () {
         this.router = express_1.Router({ caseSensitive: true });
         this.setRoutes();
     }
-    ProfileRouter.prototype.profile = function (req, res) {
+    ProfileRoutes.prototype.profile = function (req, res) {
         var bearerHeader = req.headers["authorization"];
         if (typeof bearerHeader !== "undefined") {
             var bearer = bearerHeader.split(" ");
@@ -111,14 +111,14 @@ var ProfileRouter = /** @class */ (function () {
         }
         return;
     };
-    ProfileRouter.prototype.setRoutes = function () {
+    ProfileRoutes.prototype.setRoutes = function () {
         this.router.get(RouteConstants_1.profiles + "/:username", this.profile);
         this.router.post(RouteConstants_1.profiles + "/:username/follow", TokenController_1.default.verifyToken, this.follow);
         this.router.delete(RouteConstants_1.profiles + "/:username/follow", TokenController_1.default.verifyToken, this.unfollow);
     };
-    return ProfileRouter;
+    return ProfileRoutes;
 }());
-var profileRouter = new ProfileRouter();
-profileRouter.setRoutes();
-exports.default = profileRouter.router;
+var profileRoutes = new ProfileRoutes();
+profileRoutes.setRoutes();
+exports.default = profileRoutes.router;
 //# sourceMappingURL=ProfileRoutes.js.map

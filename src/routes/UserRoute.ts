@@ -20,7 +20,7 @@ class UserRouter {
     }
     let loggedIn = userController.login(req.body.username, req.body.password);
     loggedIn
-      .then(function(result) {
+      .then(function (result) {
         if (result != null) {
           res.json({
             status: 200,
@@ -58,7 +58,7 @@ class UserRouter {
       req.body.password
     );
     result
-      .then(function(result) {
+      .then(function (result) {
         if (result != null) {
           res.json({
             status: 200,

@@ -1,7 +1,8 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
-import userRouter  from './routes/UserRoute';
-import profileRouter from './routes/ProfileRoutes';
+import userRoutes from './routes/UserRoute';
+import profileRoutes from './routes/ProfileRoutes';
+import articleRoutes from './routes/ArticleRoutes';
 
 // Server class for http server 
 class Server {
@@ -41,10 +42,12 @@ class Server {
     routes(): void {
         this.app.get('/', function (req, res) {
             res.send('hello world')
-          })
-        this.app.use('/api', userRouter);
-        this.app.use('/api', profileRouter);
-       }
+        })
+        this.app.use('/api', userRoutes);
+        this.app.use('/api', profileRoutes);
+        this.app.use('/api', articleRoutes);
+
+    }
 }
 
 export default new Server().app;

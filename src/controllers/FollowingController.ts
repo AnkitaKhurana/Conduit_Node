@@ -1,4 +1,4 @@
-const Following = require("../models/Following");
+const Following = require("../models/Model").Following;
 
 class FollowingController {
     constructor() { }
