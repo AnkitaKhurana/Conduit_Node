@@ -6,7 +6,6 @@ class ArticleController {
   constructor() {}
 
   isMyArticle(articleSlug, currentUser) {
-    console.log(articleSlug + currentUser);
     return this.getArticle(articleSlug)
       .then(articleFound => {
         return currentUser == articleFound.userUsername;
@@ -101,7 +100,7 @@ class ArticleController {
       .then();
   }
 
-  getFeed(currentUser) {
+  getMyArticles(currentUser) {
     return User.findOne({ where: { username: currentUser } })
       .then(user => {
         return user

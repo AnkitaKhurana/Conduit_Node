@@ -70,9 +70,9 @@ var ArticleRoutes = /** @class */ (function () {
             });
             return;
         };
-        this.feed = function (req, res) {
+        this.myArticles = function (req, res) {
             var currentUser = req.body.token;
-            ArticleController_1.default.getFeed(currentUser)
+            ArticleController_1.default.getMyArticles(currentUser)
                 .then(function (articles) {
                 res.json({
                     status: 200,
@@ -117,7 +117,7 @@ var ArticleRoutes = /** @class */ (function () {
         this.setRoutes();
     }
     ArticleRoutes.prototype.setRoutes = function () {
-        this.router.get(RouteConstants_1.articles + '/feed', TokenController_1.default.verifyToken, this.feed);
+        this.router.get(RouteConstants_1.articles + '/myArticles', TokenController_1.default.verifyToken, this.myArticles);
         this.router.get(RouteConstants_1.articles + "/:slug", this.getArticle);
         this.router.put(RouteConstants_1.articles + '/:slug', TokenController_1.default.verifyToken, this.updateArticle);
         this.router.post(RouteConstants_1.articles, TokenController_1.default.verifyToken, this.saveArticle);

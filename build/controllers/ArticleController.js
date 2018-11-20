@@ -7,7 +7,6 @@ var ArticleController = /** @class */ (function () {
     function ArticleController() {
     }
     ArticleController.prototype.isMyArticle = function (articleSlug, currentUser) {
-        console.log(articleSlug + currentUser);
         return this.getArticle(articleSlug)
             .then(function (articleFound) {
             return currentUser == articleFound.userUsername;
@@ -86,7 +85,7 @@ var ArticleController = /** @class */ (function () {
         })
             .then();
     };
-    ArticleController.prototype.getFeed = function (currentUser) {
+    ArticleController.prototype.getMyArticles = function (currentUser) {
         return User.findOne({ where: { username: currentUser } })
             .then(function (user) {
             return user

@@ -83,9 +83,9 @@ class ArticleRoutes {
         return;
     }
 
-    feed = (req: Request, res: Response) => {
+    myArticles = (req: Request, res: Response) => {
         var currentUser = req.body.token;
-        articleController.getFeed(currentUser)
+        articleController.getMyArticles(currentUser)
             .then(articles => {
                 res.json({
                     status: 200,
@@ -132,7 +132,7 @@ class ArticleRoutes {
 
     public setRoutes() {
 
-        this.router.get(articles + '/feed', tokenController.verifyToken, this.feed);
+        this.router.get(articles + '/myArticles', tokenController.verifyToken, this.myArticles);
         this.router.get(articles + "/:slug", this.getArticle);
         this.router.put(articles + '/:slug', tokenController.verifyToken, this.updateArticle);
         this.router.post(articles, tokenController.verifyToken, this.saveArticle);
