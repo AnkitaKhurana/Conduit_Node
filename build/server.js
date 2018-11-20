@@ -7,6 +7,7 @@ var ProfileRoutes_1 = require("./routes/ProfileRoutes");
 var ArticleRoutes_1 = require("./routes/ArticleRoutes");
 var CommentRoutes_1 = require("./routes/CommentRoutes");
 var TagRoutes_1 = require("./routes/TagRoutes");
+var FavoriteRoutes_1 = require("./routes/FavoriteRoutes");
 // Server class for http server 
 var Server = /** @class */ (function () {
     function Server() {
@@ -37,6 +38,7 @@ var Server = /** @class */ (function () {
         this.app.use('/api', UserRoute_1.default);
         this.app.use('/api', ProfileRoutes_1.default);
         this.app.use('/api', ArticleRoutes_1.default);
+        this.app.use('/api', FavoriteRoutes_1.default);
         this.app.use('/api', CommentRoutes_1.default);
         this.app.use('/api', TagRoutes_1.default);
     };

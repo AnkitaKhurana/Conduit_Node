@@ -5,7 +5,13 @@ var TagController = /** @class */ (function () {
     function TagController() {
     }
     TagController.prototype.getAllTags = function () {
-        return Tag.findAll({}).then(function (tags) { return tags; }).catch(function (err) { return err; });
+        return Tag.findAll({})
+            .then(function (tags) {
+            return tags;
+        })
+            .catch(function (err) {
+            return err;
+        });
     };
     TagController.prototype.getTags = function (article) {
         return article.getTags().then(function (tags) {
@@ -17,10 +23,12 @@ var TagController = /** @class */ (function () {
             where: {
                 body: tag
             }
-        }).spread(function (tagResult) {
+        })
+            .spread(function (tagResult) {
             var tagObject = tagResult.get({ plain: true });
             return tagObject;
-        }).catch(function (err) {
+        })
+            .catch(function (err) {
             return err;
         });
     };
@@ -29,9 +37,11 @@ var TagController = /** @class */ (function () {
             where: {
                 body: tag
             }
-        }).then(function (tagResult) {
+        })
+            .then(function (tagResult) {
             return tagResult;
-        }).catch(function (err) {
+        })
+            .catch(function (err) {
             console.log(err);
             return null;
         });

@@ -42,6 +42,21 @@ const Following = db.define("following", {
     } 
   });
 
+
+  
+
+// Favorites Model
+const Favorite = db.define("favorites", {
+    username: {
+      type: Sequelize.STRING,
+      required: true
+    },
+    slug: {
+      type: Sequelize.STRING,
+      required: true
+    } 
+  });
+
 //Tag Model
 const Tag = db.define("tag", {
     body: {
@@ -111,4 +126,4 @@ User.hasMany(ArticleComment);
 //Relations
 Article.belongsToMany(Tag, { as: 'tags', through: ArticleTag });
 Tag.belongsToMany(Article, { as: 'articles', through: ArticleTag });
-module.exports = { User, Article, Tag , Following, ArticleComment};
+module.exports = { User, Article, Tag , Following, ArticleComment,Favorite};

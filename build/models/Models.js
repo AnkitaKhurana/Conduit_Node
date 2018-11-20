@@ -37,6 +37,17 @@ var Following = db.define("following", {
         required: true
     }
 });
+// Favorites Model
+var Favorite = db.define("favorites", {
+    username: {
+        type: Sequelize.STRING,
+        required: true
+    },
+    slug: {
+        type: Sequelize.STRING,
+        required: true
+    }
+});
 //Tag Model
 var Tag = db.define("tag", {
     body: {
@@ -96,5 +107,5 @@ User.hasMany(ArticleComment);
 //Relations
 Article.belongsToMany(Tag, { as: 'tags', through: ArticleTag });
 Tag.belongsToMany(Article, { as: 'articles', through: ArticleTag });
-module.exports = { User: User, Article: Article, Tag: Tag, Following: Following, ArticleComment: ArticleComment };
+module.exports = { User: User, Article: Article, Tag: Tag, Following: Following, ArticleComment: ArticleComment, Favorite: Favorite };
 //# sourceMappingURL=Models.js.map
