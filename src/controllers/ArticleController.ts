@@ -1,4 +1,3 @@
-import userController from "./UserController";
 import tagController from "./TagController";
 const User = require("../models/Models").User;
 const Article = require("../models/Models").Article;
@@ -15,6 +14,17 @@ class ArticleController {
       .catch(err => {
         return err;
       });
+  }
+
+  saveToArticle(comment, slug){
+    return Article.findOne({ where: { slug: slug } })
+    .then(foundArticle => {
+      foundArticle.addComment(comment.id).then(() => {});
+    })
+    .catch(err => {
+      console.log(err);
+      return err;
+    });
   }
 
   getArticle(slug: string) {

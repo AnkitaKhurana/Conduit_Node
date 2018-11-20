@@ -16,6 +16,16 @@ var ArticleController = /** @class */ (function () {
             return err;
         });
     };
+    ArticleController.prototype.saveToArticle = function (comment, slug) {
+        return Article.findOne({ where: { slug: slug } })
+            .then(function (foundArticle) {
+            foundArticle.addComment(comment.id).then(function () { });
+        })
+            .catch(function (err) {
+            console.log(err);
+            return err;
+        });
+    };
     ArticleController.prototype.getArticle = function (slug) {
         return Article.findOne({ where: { slug: slug } }).then(function (article) {
             var articleObject = article.get({ plain: true });
@@ -38,7 +48,7 @@ var ArticleController = /** @class */ (function () {
     };
     ArticleController.prototype.updateArticle = function (slug, title, description, body) {
         return Article.update({ title: title, description: description, body: body }, {
-            where: { slug: slug },
+            where: { slug: slug }
         })
             .then(function () {
             return Article.findOne({ where: { slug: slug } });

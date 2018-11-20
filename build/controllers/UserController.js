@@ -78,6 +78,17 @@ var UserController = /** @class */ (function () {
             return err;
         });
     };
+    UserController.prototype.saveCommentToUser = function (comment, author) {
+        console.log(author);
+        return User.findOne({ where: { username: author } })
+            .then(function (foundAuthor) {
+            foundAuthor.addComment(comment.id).then(function () { });
+        })
+            .catch(function (err) {
+            console.log(err);
+            return err;
+        });
+    };
     UserController.prototype.saveToUser = function (article, author) {
         return User.findOne({ where: { username: author } })
             .then(function (foundAuthor) {

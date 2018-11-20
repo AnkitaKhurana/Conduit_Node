@@ -58,7 +58,6 @@ var ArticleRoutes = /** @class */ (function () {
         this.updateArticle = function (req, res) {
             ArticleController_1.default.updateArticle(req.params.slug, req.body.title, req.body.description, req.body.body)
                 .then(function (article) {
-                console.log(article);
                 res.json({
                     status: 200,
                     article: article
@@ -106,7 +105,6 @@ var ArticleRoutes = /** @class */ (function () {
                         });
                     });
                 }).catch(function (err) {
-                    console.log(err);
                     res.json({
                         status: 400,
                         err: err
@@ -118,29 +116,12 @@ var ArticleRoutes = /** @class */ (function () {
         this.router = express_1.Router({ caseSensitive: true });
         this.setRoutes();
     }
-    // feed = ( req: Request,res: Response) => {
-    //     var currentUser = req.body.token;
-    //     articleController.getFeed(currentUser)
-    //         .then(articles => {
-    //             res.json({
-    //                 status: 200,
-    //                 articles
-    //             })
-    //         }).catch(err => {
-    //             res.json({
-    //                 status: 400,
-    //                 err
-    //             })
-    //         });
-    //     return;
-    // }
     ArticleRoutes.prototype.setRoutes = function () {
         this.router.get(RouteConstants_1.articles + '/feed', TokenController_1.default.verifyToken, this.feed);
         this.router.get(RouteConstants_1.articles + "/:slug", this.getArticle);
         this.router.put(RouteConstants_1.articles + '/:slug', TokenController_1.default.verifyToken, this.updateArticle);
         this.router.post(RouteConstants_1.articles, TokenController_1.default.verifyToken, this.saveArticle);
         this.router.delete(RouteConstants_1.articles + "/:slug", TokenController_1.default.verifyToken, this.deleteArticle);
-        //   this.router.get(profiles + "/:username", this.profile);
     };
     return ArticleRoutes;
 }());

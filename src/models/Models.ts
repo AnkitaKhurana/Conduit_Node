@@ -1,3 +1,5 @@
+import { users } from "../constants/RouteConstants";
+
 var Sequelize = require("sequelize");
 var db = require("../db");
 
@@ -11,7 +13,6 @@ const User = db.define("user", {
     token: {
         type: Sequelize.STRING,
         required: true,
-
     },
     password: {
         type: Sequelize.STRING,
@@ -51,7 +52,16 @@ const Tag = db.define("tag", {
 });
 
 
-//Article odel
+//Comment Model
+const ArticleComment = db.define("comment", {
+    body: {
+        type: Sequelize.STRING,
+        required: true
+    }
+});
+
+
+//Article Model
 const Article = db.define("article", {
     slug: {
         type: Sequelize.STRING,
@@ -90,14 +100,15 @@ Article.addHook('beforeValidate', (article, options) => {
 });
 
 
-
 //ArticleTag Model
 const ArticleTag = db.define("article_tag", {});
 
 
 User.hasMany(Article);
+Article.hasMany(ArticleComment);
+User.hasMany(ArticleComment);
 
 //Relations
 Article.belongsToMany(Tag, { as: 'tags', through: ArticleTag });
 Tag.belongsToMany(Article, { as: 'articles', through: ArticleTag });
-module.exports = { User, Article, Tag , Following};
+module.exports = { User, Article, Tag , Following, ArticleComment};

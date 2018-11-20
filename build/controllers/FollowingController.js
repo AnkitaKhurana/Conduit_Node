@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var Following = require("../models/Following");
+var Following = require("../models/Models").Following;
 var FollowingController = /** @class */ (function () {
     function FollowingController() {
     }

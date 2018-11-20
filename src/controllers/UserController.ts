@@ -3,7 +3,7 @@ import tokenController from "../controllers/TokenController";
 const User = require("../models/Models").User;
 
 class UserController {
-  constructor() {}
+  constructor() { }
 
   public findUser(email) {
     return User.findOne({ where: { email: email } })
@@ -82,10 +82,22 @@ class UserController {
       });
   }
 
+  public saveCommentToUser(comment, author) {
+    console.log(author)
+    return User.findOne({ where: { username: author } })
+      .then(foundAuthor => {
+        foundAuthor.addComment(comment.id).then(() => { });
+      })
+      .catch(err => {
+        console.log(err);
+        return err;
+      });
+  }
+
   public saveToUser(article, author) {
     return User.findOne({ where: { username: author } })
       .then(foundAuthor => {
-        foundAuthor.addArticle(article.id).then(() => {});
+        foundAuthor.addArticle(article.id).then(() => { });
       })
       .catch(err => {
         console.log(err);

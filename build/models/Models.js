@@ -1,3 +1,5 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var Sequelize = require("sequelize");
 var db = require("../db");
 // User Model
@@ -24,6 +26,17 @@ var User = db.define("user", {
         primaryKey: true
     },
 });
+// Following Model
+var Following = db.define("following", {
+    followerName: {
+        type: Sequelize.STRING,
+        required: true
+    },
+    followingName: {
+        type: Sequelize.STRING,
+        required: true
+    }
+});
 //Tag Model
 var Tag = db.define("tag", {
     body: {
@@ -32,7 +45,14 @@ var Tag = db.define("tag", {
         unique: true,
     }
 });
-//Article odel
+//Comment Model
+var ArticleComment = db.define("comment", {
+    body: {
+        type: Sequelize.STRING,
+        required: true
+    }
+});
+//Article Model
 var Article = db.define("article", {
     slug: {
         type: Sequelize.STRING,
@@ -71,8 +91,10 @@ Article.addHook('beforeValidate', function (article, options) {
 //ArticleTag Model
 var ArticleTag = db.define("article_tag", {});
 User.hasMany(Article);
+Article.hasMany(ArticleComment);
+User.hasMany(ArticleComment);
 //Relations
 Article.belongsToMany(Tag, { as: 'tags', through: ArticleTag });
 Tag.belongsToMany(Article, { as: 'articles', through: ArticleTag });
-module.exports = { User: User, Article: Article, Tag: Tag };
+module.exports = { User: User, Article: Article, Tag: Tag, Following: Following, ArticleComment: ArticleComment };
 //# sourceMappingURL=Models.js.map

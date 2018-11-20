@@ -1,9 +1,8 @@
 import tokenController from "../controllers/TokenController";
 import { Request, Response, Router } from "express";
-import { profiles, articles } from "../constants/RouteConstants";
+import { articles } from "../constants/RouteConstants";
 import articleController from "../controllers/ArticleController";
 import userController from '../controllers/UserController';
-import { json } from "body-parser";
 
 class ArticleRoutes {
     public router: Router;
@@ -122,7 +121,6 @@ class ArticleRoutes {
                         })
                     })
                 }).catch(err => {
-                    console.log(err)
                     res.json({
                         status: 400,
                         err
@@ -131,7 +129,7 @@ class ArticleRoutes {
             return;
         }
     }
-    
+
     public setRoutes() {
 
         this.router.get(articles + '/feed', tokenController.verifyToken, this.feed);
@@ -139,7 +137,6 @@ class ArticleRoutes {
         this.router.put(articles + '/:slug', tokenController.verifyToken, this.updateArticle);
         this.router.post(articles, tokenController.verifyToken, this.saveArticle);
         this.router.delete(articles + "/:slug", tokenController.verifyToken, this.deleteArticle);
-        //   this.router.get(profiles + "/:username", this.profile);
 
     }
 }
