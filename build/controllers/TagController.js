@@ -4,6 +4,9 @@ var Tag = require("../models/Models").Tag;
 var TagController = /** @class */ (function () {
     function TagController() {
     }
+    TagController.prototype.getAllTags = function () {
+        return Tag.findAll({}).then(function (tags) { return tags; }).catch(function (err) { return err; });
+    };
     TagController.prototype.getTags = function (article) {
         return article.getTags().then(function (tags) {
             return tags;
@@ -18,7 +21,7 @@ var TagController = /** @class */ (function () {
             var tagObject = tagResult.get({ plain: true });
             return tagObject;
         }).catch(function (err) {
-            return null;
+            return err;
         });
     };
     TagController.prototype.saveTagObject = function (tag) {

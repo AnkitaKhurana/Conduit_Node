@@ -3,7 +3,7 @@ const User = require("../models/Models").User;
 const Article = require("../models/Models").Article;
 
 class ArticleController {
-  constructor() {}
+  constructor() { }
 
   isMyArticle(articleSlug, currentUser) {
     return this.getArticle(articleSlug)
@@ -15,15 +15,15 @@ class ArticleController {
       });
   }
 
-  saveToArticle(comment, slug){
+  saveToArticle(comment, slug) {
     return Article.findOne({ where: { slug: slug } })
-    .then(foundArticle => {
-      foundArticle.addComment(comment.id).then(() => {});
-    })
-    .catch(err => {
-      console.log(err);
-      return err;
-    });
+      .then(foundArticle => {
+        foundArticle.addComment(comment.id).then(() => { });
+      })
+      .catch(err => {
+        console.log(err);
+        return err;
+      });
   }
 
   getArticle(slug: string) {
@@ -85,10 +85,11 @@ class ArticleController {
             tagController
               .saveTag(tag)
               .then(saved => {
-                article.addTag(saved.id).then(item => {});
+                article.addTag(saved.id).then(item => { });
               })
               .catch(err => {
                 console.log(err);
+                return err;
               });
           }
           articleObject.tagList = tagList;
@@ -97,7 +98,11 @@ class ArticleController {
           return articleObject;
         }
       })
-      .then();
+      .catch(err => {
+        console.log(err);
+        return err;
+      });
+
   }
 
   getMyArticles(currentUser) {

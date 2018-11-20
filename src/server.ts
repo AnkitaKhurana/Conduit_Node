@@ -4,6 +4,7 @@ import userRoutes from './routes/UserRoute';
 import profileRoutes from './routes/ProfileRoutes';
 import articleRoutes from './routes/ArticleRoutes';
 import commentRoutes from './routes/CommentRoutes';
+import tagRoutes from './routes/TagRoutes';
 
 // Server class for http server 
 class Server {
@@ -48,6 +49,7 @@ class Server {
         this.app.use('/api', profileRoutes);
         this.app.use('/api', articleRoutes);
         this.app.use('/api', commentRoutes);
+        this.app.use('/api', tagRoutes);
 
 
     }

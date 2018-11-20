@@ -74,6 +74,7 @@ var ArticleController = /** @class */ (function () {
                     })
                         .catch(function (err) {
                         console.log(err);
+                        return err;
                     });
                 }
                 articleObject.tagList = tagList;
@@ -83,7 +84,10 @@ var ArticleController = /** @class */ (function () {
                 return articleObject;
             }
         })
-            .then();
+            .catch(function (err) {
+            console.log(err);
+            return err;
+        });
     };
     ArticleController.prototype.getMyArticles = function (currentUser) {
         return User.findOne({ where: { username: currentUser } })
