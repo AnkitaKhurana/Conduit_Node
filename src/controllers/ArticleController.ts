@@ -1,6 +1,7 @@
 import tagController from "./TagController";
 const User = require("../models/Models").User;
 const Article = require("../models/Models").Article;
+const Following = require('../models/Models').Following;
 
 class ArticleController {
   constructor() { }
@@ -46,6 +47,22 @@ class ArticleController {
     return Article.destroy({
       where: { slug: slug }
     });
+  }
+
+  feed(username: string) {
+    let articlesToReturn = [];
+    return Following.findAll({ where: { followerName: username } }).then(async rows => {
+      for (let row of rows) {
+        await new Promise((resolve, reject) => {
+          Article.findAll({ where: { userUsername: row.followingName } }).then(articles => {
+            articlesToReturn.push(articles);
+            resolve(1);
+          });
+        });
+      }
+      return articlesToReturn;
+
+    })
   }
 
   updateArticle(

@@ -86,6 +86,22 @@ var ArticleRoutes = /** @class */ (function () {
             });
             return;
         };
+        this.feed = function (req, res) {
+            var currentUser = req.body.token;
+            ArticleController_1.default.feed(currentUser)
+                .then(function (articles) {
+                res.json({
+                    status: 200,
+                    articles: articles
+                });
+            }).catch(function (err) {
+                res.json({
+                    status: 400,
+                    err: err
+                });
+            });
+            return;
+        };
         this.saveArticle = function (req, res) {
             if (req.body.title == null ||
                 req.body.description == null ||
@@ -117,6 +133,7 @@ var ArticleRoutes = /** @class */ (function () {
         this.setRoutes();
     }
     ArticleRoutes.prototype.setRoutes = function () {
+        this.router.get(RouteConstants_1.articles + '/feed', TokenController_1.default.verifyToken, this.feed);
         this.router.get(RouteConstants_1.articles + '/myArticles', TokenController_1.default.verifyToken, this.myArticles);
         this.router.get(RouteConstants_1.articles + "/:slug", this.getArticle);
         this.router.put(RouteConstants_1.articles + '/:slug', TokenController_1.default.verifyToken, this.updateArticle);
