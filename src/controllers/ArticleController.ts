@@ -1,10 +1,61 @@
 import tagController from "./TagController";
 const User = require("../models/Models").User;
 const Article = require("../models/Models").Article;
-const Following = require('../models/Models').Following;
+const Following = require("../models/Models").Following;
+const Tag = require("../models/Models").Tag;
 
 class ArticleController {
-  constructor() { }
+  constructor() {}
+
+  getArticles(limitSent, offsetSent, tagSent, authorSent) {
+    var query = {};
+    var limit = 20;
+    var offset = 0;
+    var tag = "";
+    var author = "";
+    console.log(limitSent, offsetSent, tagSent);
+    if (typeof limitSent !== "undefined") {
+      limit = limitSent;
+    }
+
+    if (typeof offsetSent !== "undefined") {
+      offset = offsetSent;
+    }
+
+    if (typeof tagSent !== "undefined") {
+      tag = tagSent;
+    }
+    if (typeof authorSent !== "undefined") {
+      author = authorSent;
+    }
+    return Article.findAll({
+      offset: offset,
+      limit: limit,
+      include: [
+        {
+          model: Tag,
+          as: "tags",
+          where: {
+            body: {
+              $like: "%" + tag + "%"
+            }
+          }
+        }
+      ],
+      order: [["createdAt", "DESC"]],
+      where: {
+        userUsername: {
+          $like: "%" + author + "%"
+        }
+      }
+    })
+      .then(function(result) {
+        return result;
+      })
+      .catch(err => {
+        return err;
+      });
+  }
 
   isMyArticle(articleSlug, currentUser) {
     return this.getArticle(articleSlug)
@@ -19,7 +70,7 @@ class ArticleController {
   saveToArticle(comment, slug) {
     return Article.findOne({ where: { slug: slug } })
       .then(foundArticle => {
-        foundArticle.addComment(comment.id).then(() => { });
+        foundArticle.addComment(comment.id).then(() => {});
       })
       .catch(err => {
         console.log(err);
@@ -28,7 +79,10 @@ class ArticleController {
   }
 
   getArticle(slug: string) {
-    return Article.findOne({ where: { slug: slug } }).then(article => {
+    return Article.findOne({
+      where: { slug: slug },
+      include: [{ all: true }]
+    }).then(article => {
       let articleObject = article.get({ plain: true });
       return tagController
         .getTags(article)
@@ -51,18 +105,23 @@ class ArticleController {
 
   feed(username: string) {
     let articlesToReturn = [];
-    return Following.findAll({ where: { followerName: username } }).then(async rows => {
+    return Following.findAll({
+      where: { followerName: username },
+      include: [{ all: true }]
+    }).then(async rows => {
       for (let row of rows) {
         await new Promise((resolve, reject) => {
-          Article.findAll({ where: { userUsername: row.followingName } }).then(articles => {
+          Article.findAll({
+            where: { userUsername: row.followingName },
+            include: [{ all: true }]
+          }).then(articles => {
             articlesToReturn.push(articles);
             resolve(1);
           });
         });
       }
       return articlesToReturn;
-
-    })
+    });
   }
 
   updateArticle(
@@ -84,6 +143,7 @@ class ArticleController {
         return err;
       });
   }
+  
   saveArticle(
     title: string,
     description: string,
@@ -102,7 +162,7 @@ class ArticleController {
             tagController
               .saveTag(tag)
               .then(saved => {
-                article.addTag(saved.id).then(item => { });
+                article.addTag(saved.id).then(item => {});
               })
               .catch(err => {
                 console.log(err);
@@ -119,11 +179,13 @@ class ArticleController {
         console.log(err);
         return err;
       });
-
   }
 
   getMyArticles(currentUser) {
-    return User.findOne({ where: { username: currentUser } })
+    return User.findOne({
+      where: { username: currentUser },
+      include: [{ all: true }]
+    })
       .then(user => {
         return user
           .getArticles()

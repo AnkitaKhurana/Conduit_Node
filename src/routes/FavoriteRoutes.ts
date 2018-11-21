@@ -13,6 +13,9 @@ class FavoriteRoutes {
     this.setRoutes();
   }
 
+  /*********************************************************************************/
+  /***********************Function to favorite an Article***************************/
+  /*********************************************************************************/
   favorite = (req: Request, res: Response) => {
     return favoriteController
       .favorite(req.body.token, req.params.slug)
@@ -57,6 +60,9 @@ class FavoriteRoutes {
       });
   };
 
+  /*********************************************************************************/
+  /**************************Function to unfavorite Article*************************/
+  /*********************************************************************************/
   unfavorite = (req: Request, res: Response) => {
     return favoriteController
       .unfavorite(req.body.token, req.params.slug)
@@ -101,6 +107,9 @@ class FavoriteRoutes {
       });
   };
 
+  /*********************************************************************************/
+  /*************************Function to set Favorite Routes*************************/
+  /*********************************************************************************/
   public setRoutes() {
     this.router.post(
       articles + "/:slug/favorite",

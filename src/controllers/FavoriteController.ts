@@ -67,7 +67,7 @@ class FavoriteController {
 
     updateArticleCount(slug: string, status) {
         return Article.findOne({ where: { slug: slug } }).then(option => {
-            console.log(status,favoriteStatus.FAVORITE,status == favoriteStatus.FAVORITE)
+            console.log(status, favoriteStatus.FAVORITE, status == favoriteStatus.FAVORITE)
             if (status == favoriteStatus.FAVORITE)
                 return option.increment('favoritesCount');
             else

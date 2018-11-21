@@ -13,6 +13,9 @@ class ArticleRoutes {
     this.setRoutes();
   }
 
+  /*********************************************************************************/
+  /***********************Function to get Article Comments**************************/
+  /*********************************************************************************/
   getComments = (req: Request, res: Response) => {
     return commentController
       .getComments(req.params.slug)
@@ -30,6 +33,9 @@ class ArticleRoutes {
       });
   };
 
+  /*********************************************************************************/
+  /***************************Function to delete Comment****************************/
+  /*********************************************************************************/
   deleteComment = (req: Request, res: Response) => {
     let currentUser = req.body.token;
     let id = req.params.id;
@@ -73,6 +79,9 @@ class ArticleRoutes {
       });
   };
 
+  /*********************************************************************************/
+  /***************************Function to save Comment******************************/
+  /*********************************************************************************/
   saveComment = (req: Request, res: Response) => {
     return commentController
       .saveComment(req.body.body)
@@ -110,6 +119,9 @@ class ArticleRoutes {
       });
   };
 
+  /*********************************************************************************/
+  /************************Function to set Comment Routes***************************/
+  /*********************************************************************************/
   public setRoutes() {
     this.router.get(articles + "/:slug" + "/comments", this.getComments); // this.router.get(articles + "/:slug", this.getArticle);
     this.router.delete(

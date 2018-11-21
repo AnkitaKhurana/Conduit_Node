@@ -33,29 +33,29 @@ const User = db.define("user", {
 // Following Model
 const Following = db.define("following", {
     followerName: {
-      type: Sequelize.STRING,
-      required: true
+        type: Sequelize.STRING,
+        required: true
     },
     followingName: {
-      type: Sequelize.STRING,
-      required: true
-    } 
-  });
+        type: Sequelize.STRING,
+        required: true
+    }
+});
 
 
-  
+
 
 // Favorites Model
 const Favorite = db.define("favorites", {
     username: {
-      type: Sequelize.STRING,
-      required: true
+        type: Sequelize.STRING,
+        required: true
     },
     slug: {
-      type: Sequelize.STRING,
-      required: true
-    } 
-  });
+        type: Sequelize.STRING,
+        required: true
+    }
+});
 
 //Tag Model
 const Tag = db.define("tag", {
@@ -119,11 +119,14 @@ Article.addHook('beforeValidate', (article, options) => {
 const ArticleTag = db.define("article_tag", {});
 
 
+
+//Relations
+
 User.hasMany(Article);
 Article.hasMany(ArticleComment);
 User.hasMany(ArticleComment);
-
-//Relations
 Article.belongsToMany(Tag, { as: 'tags', through: ArticleTag });
 Tag.belongsToMany(Article, { as: 'articles', through: ArticleTag });
-module.exports = { User, Article, Tag , Following, ArticleComment,Favorite};
+
+
+module.exports = { User, Article, Tag, Following, ArticleComment, Favorite };

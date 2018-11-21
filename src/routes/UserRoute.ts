@@ -134,6 +134,9 @@ class UserRouter {
     return;
   }
 
+  /*********************************************************************************/
+  /****************************Function to set Routes*******************************/
+  /*********************************************************************************/
   public setRoutes() {
     this.router.post(users + "/login", this.login);
     this.router.post(users + "/", this.register);
